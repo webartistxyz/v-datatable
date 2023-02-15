@@ -1,0 +1,53 @@
+{
+  "name": "v-datatable",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A simple Vue 3 data table including sorting, searching, pagination, and CSV download feature also. This data table has multiple customize options also.",
+  "author": "Mohiuddin Sadek <mhddnsadek@gmail.com>",
+  "repository": {
+    "type": "git"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "vuejs",
+    "plugin",
+    "data table",
+    "Datatable",
+    "data-table",
+    "datatable",
+    "Vue js datatable",
+    "vue data table",
+    "vue3 datatable",
+    "vue js data-table",
+    "Vue datatable with CSV download",
+    "vue 3 npm package for datatable"
+  ],
+  "license": "MIT",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "main": "./dist/v-datatable.umd.cjs",
+  "module": "./dist/v-datatable.js",
+  "exports": {
+    ".": {
+      "import": "./dist/v-datatable.js",
+      "require": "./dist/v-datatable.umd.cjs"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "rollup-plugin-visualizer": "^5.5.4",
+    "vite": "^4.1.0"
+  }
+}
