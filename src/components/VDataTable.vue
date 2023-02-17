@@ -4,8 +4,8 @@
       <slot name="header"></slot>
       <br>
       <div class="row">
-        <div v-if="selectableEntries" :class="entriesClass">
-          <div class="input-group mb-3 align-items-center">
+        <div :class="entriesClass">
+          <div class="input-group mb-3 align-items-center" v-if="isShowPerPageOption">
             <label class="custom-label--left-side" for="entrySelector">Entries</label>
             <select class="form-select" id="entrySelector" v-model="perPage">
               <option v-for="option in perPageOptions" :value="option">{{ option }}</option>
@@ -13,11 +13,11 @@
           </div>
         </div>
 
-        <div :class="filterClass" class="mb-3">
+        <div :class="filterClass">
           <slot name="filters"></slot>
         </div>
-        <div v-if="isSearchAble" :class="searchClass">
-          <div class="input-group mb-3">
+        <div :class="searchClass">
+          <div class="input-group mb-3" v-if="isSearchAble">
             <input type="text" class="form-control" :placeholder="searchPlaceholder" id="tableSearch" v-model="search">
             <label class="custom-label--right-side" for="tableSearch"><i class="fa fa-search"></i></label>
           </div>
@@ -26,7 +26,7 @@
 
       </div>
     </div>
-    <div class="card-body px-0 pt-0 pb-2">
+    <div class="card-body px-0 pt-0 pb-5">
       <div class="table-responsive p-0">
         <table class="table align-items-center mb-0">
           <thead>
@@ -51,7 +51,9 @@
           <slot name="custom_loop_data"></slot>
           </tbody>
 
-          <slot name="tableFooter"></slot>
+          <tfoot>
+            <slot name="table_footer"></slot>
+          </tfoot>
         </table>
         <div v-if="!data.length" class="text-center p-5">
           <h5 style="color: #cc3300">
@@ -90,7 +92,7 @@
         </nav>
       </div>
     </div>
-    <button v-if="data.length" class="btn btn-default" style="position: absolute; bottom: 2px; right: 2px" @click="downloadAsCSV()">Download CSV</button>
+    <button v-if="data.length && csvDownload" class="btn btn-default" style="position: absolute; bottom: 2px; right: 2px" @click="downloadAsCSV()">Download CSV</button>
   </div>
 </template>
 
@@ -146,7 +148,11 @@ export default {
       type: String,
       default: "List"
     },
-    selectableEntries: {
+    isShowPerPageOption: {
+      type: Boolean,
+      default: true
+    },
+    csvDownload: {
       type: Boolean,
       default: true
     }
