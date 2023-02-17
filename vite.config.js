@@ -9,7 +9,7 @@ export default defineConfig({
       entry: resolve(__dirname, "src/main.js"),
       name: "VDataTable",
       // the proper extensions will be added
-      fileName: "v-datatable",
+      fileName: "@webartistxyz/vue-datatable",
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled

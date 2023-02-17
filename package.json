@@ -1,5 +1,5 @@
 {
-  "name": "v-datatable",
+  "name": "@webartistxyz/vue-datatable",
   "version": "1.0.0",
   "type": "module",
   "description": "A simple Vue 3 data table including sorting, searching, pagination, and CSV download feature also. This data table has multiple customize options also.",
@@ -29,12 +29,12 @@
     "src",
     "dist"
   ],
-  "main": "./dist/v-datatable.umd.cjs",
-  "module": "./dist/v-datatable.js",
+  "main": "./dist/@webartistxyz/vue-datatable.umd.cjs",
+  "module": "./dist/@webartistxyz/vue-datatable.js",
   "exports": {
     ".": {
-      "import": "./dist/v-datatable.js",
-      "require": "./dist/v-datatable.umd.cjs"
+      "import": "./dist/@webartistxyz/vue-datatable.js",
+      "require": "./dist/@webartistxyz/vue-datatable.umd.cjs"
     },
     "./dist/style.css": "./dist/style.css"
   },

@@ -8,7 +8,7 @@ A simple Vue 3 data table including sorting, searching, pagination, and CSV down
 ### Install Plugin
 
 ```shell
-npm i v-datatable
+npm i @webartistxyz/vue-datatable
 ```
 
 ---
@@ -20,7 +20,7 @@ npm i v-datatable
 ```html
 <!-- Import css file -->
 <style>
-    @import "v-datatable/dist/style.css";
+    @import "@webartistxyz/vue-datatable/dist/style.css";
 </style>
 ```
 
@@ -35,7 +35,7 @@ npm i v-datatable
 After installing import the component in your desired file.
 
 ```js
-import { VDataTable } from "v-datatable"
+import { VDataTable } from "@webartistxyz/vue-datatable"
 
 export default {
     name: "YourComponentName", 
@@ -117,7 +117,7 @@ export default {
 After installing import the component in your main.js file.
 
 ```js
-import VDataTable from "v-datatable"
+import VDataTable from "@webartistxyz/vue-datatable"
 
 createApp(App).use(VDataTable).mount("#app");
 ```
