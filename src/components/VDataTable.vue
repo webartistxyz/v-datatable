@@ -148,6 +148,14 @@
     >
       Download CSV
     </button>
+    <button
+      v-if="data.length && xlsxDownload"
+      class="btn btn-default"
+      style="position: absolute; bottom: 2px; right: 2px"
+      @click="downloadAsXLSX()"
+    >
+      Download as xlsx
+    </button>
   </div>
 </template>
 
