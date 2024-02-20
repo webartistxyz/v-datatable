@@ -321,43 +321,7 @@ export default {
       return `${headerRow}\n${bodyRows.join("\n")}`;
     },
     downloadAsXLSX() {
-      const headerRow = Object.keys(this.data[0])
-        .map((key) => `<th>${key}</th>`)
-        .join("");
-      const bodyRows = this.data
-        .map((item) => {
-          return `<tr>${Object.values(item)
-            .map((value) => `<td>${value}</td>`)
-            .join("")}</tr>`;
-        })
-        .join("");
-
-      // Construct the HTML content of the table
-      const tableContent = `
-    <table>
-      <thead><tr>${headerRow}</tr></thead>
-      <tbody>${bodyRows}</tbody>
-    </table>
-  `;
-
-      // Create a Blob with the HTML content
-      const blob = new Blob([tableContent], {
-        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      });
-
-      const link = document.createElement("a");
-      if (link.download !== undefined) {
-        const url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", this.fileName + ".xlsx");
-        link.style.visibility = "hidden";
-        document.body.appendChild(link);
-        link.click();
-
-        // Cleanup
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      }
+      console.log('test');
     },
   },
 };

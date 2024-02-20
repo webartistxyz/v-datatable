@@ -1,6 +1,6 @@
 {
   "name": "@webartistxyz/vue-datatable",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "type": "module",
   "description": "A simple Vue 3 data table including sorting, searching, pagination, and CSV download feature also. This data table has multiple customize options also.",
   "author": "Mohiuddin Sadek <mhddnsadek@gmail.com>",
