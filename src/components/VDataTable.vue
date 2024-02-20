@@ -2,13 +2,20 @@
   <div class="card p-2">
     <div class="card-header pb-0">
       <slot name="header"></slot>
-      <br>
+      <br />
       <div class="row">
         <div :class="entriesClass">
-          <div class="input-group mb-3 align-items-center" v-if="isShowPerPageOption">
-            <label class="custom-label--left-side" for="entrySelector">Entries</label>
+          <div
+            class="input-group mb-3 align-items-center"
+            v-if="isShowPerPageOption"
+          >
+            <label class="custom-label--left-side" for="entrySelector"
+              >Entries</label
+            >
             <select class="form-select" id="entrySelector" v-model="perPage">
-              <option v-for="option in perPageOptions" :value="option">{{ option }}</option>
+              <option v-for="option in perPageOptions" :value="option">
+                {{ option }}
+              </option>
             </select>
           </div>
         </div>
@@ -18,37 +25,52 @@
         </div>
         <div :class="searchClass">
           <div class="input-group mb-3" v-if="isSearchAble">
-            <input type="text" class="form-control" :placeholder="searchPlaceholder" id="tableSearch" v-model="search">
-            <label class="custom-label--right-side" for="tableSearch"><i class="fa fa-search"></i></label>
+            <input
+              type="text"
+              class="form-control"
+              :placeholder="searchPlaceholder"
+              id="tableSearch"
+              v-model="search"
+            />
+            <label class="custom-label--right-side" for="tableSearch"
+              ><i class="fa fa-search"></i
+            ></label>
           </div>
         </div>
-
-
       </div>
     </div>
     <div class="card-body px-0 pt-0 pb-5">
       <div class="table-responsive p-0">
         <table class="table align-items-center mb-0">
           <thead>
-          <tr>
-            <th v-for="column in columns" @click="column.sort_key ? sortBy(column.sort_key) : ''"
-                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-              <div class="d-flex flex-row" :style="column.sort_key ? 'cursor: pointer' : ''">
-                {{ column.title }}
-                <span v-if="column.sort_key" :class="sortOrder[column] > 0 ? 'asc' : 'desc'"></span>
-              </div>
-            </th>
-          </tr>
+            <tr>
+              <th
+                v-for="column in columns"
+                @click="column.sort_key ? sortBy(column.sort_key) : ''"
+                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+              >
+                <div
+                  class="d-flex flex-row"
+                  :style="column.sort_key ? 'cursor: pointer' : ''"
+                >
+                  {{ column.title }}
+                  <span
+                    v-if="column.sort_key"
+                    :class="sortOrder[column] > 0 ? 'asc' : 'desc'"
+                  ></span>
+                </div>
+              </th>
+            </tr>
           </thead>
 
           <tbody v-if="data.length && defaultLoop">
-          <tr v-for="(item, index) in paginatedData">
-            <slot name="table_data" :item="item" :index="index+1"></slot>
-          </tr>
+            <tr v-for="(item, index) in paginatedData">
+              <slot name="table_data" :item="item" :index="index + 1"></slot>
+            </tr>
           </tbody>
 
           <tbody v-if="customLoop">
-          <slot name="custom_loop_data"></slot>
+            <slot name="custom_loop_data"></slot>
           </tbody>
 
           <tfoot>
@@ -62,37 +84,78 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-between align-items-center ps-4 pe-4 py-3" v-if="pagination && data.length">
+      <div
+        class="d-flex justify-content-between align-items-center ps-4 pe-4 py-3"
+        v-if="pagination && data.length"
+      >
         <div class="text-secondary text-xs font-weight-bold">
-          Showing {{ currentPage }} of
-          {{ pageCount }} Pages
+          Showing {{ currentPage }} of {{ pageCount }} Pages
         </div>
 
         <nav aria-label="Page navigation example">
           <ul class="pagination">
-            <li class="page-item" :class="{'disabled': currentPage === 1}">
-              <a class="page-link" @click="goToPage(currentPage - 1)" href="#">Previous</a>
+            <li class="page-item" :class="{ disabled: currentPage === 1 }">
+              <a class="page-link" @click="goToPage(currentPage - 1)" href="#"
+                >Previous</a
+              >
             </li>
             <template v-for="pageNumber in pages">
-              <template v-if="Math.abs(pageNumber - currentPage) < 3 || pageNumber == pageCount || pageNumber == 1">
-                <li class="page-item" :class="{'active': pageNumber === currentPage}">
+              <template
+                v-if="
+                  Math.abs(pageNumber - currentPage) < 3 ||
+                  pageNumber == pageCount ||
+                  pageNumber == 1
+                "
+              >
+                <li
+                  class="page-item"
+                  :class="{ active: pageNumber === currentPage }"
+                >
                   <a class="page-link" @click="goToPage(pageNumber)" href="#">
-                    {{ pageNumber == pageCount && Math.abs(pageNumber - currentPage) > 3 ? "..." : null }}
+                    {{
+                      pageNumber == pageCount &&
+                      Math.abs(pageNumber - currentPage) > 3
+                        ? "..."
+                        : null
+                    }}
                     {{ pageNumber }}
-                    {{ pageNumber == 1 && Math.abs(pageNumber - currentPage) > 3 ? "..." : null }}
-
+                    {{
+                      pageNumber == 1 && Math.abs(pageNumber - currentPage) > 3
+                        ? "..."
+                        : null
+                    }}
                   </a>
                 </li>
               </template>
             </template>
-            <li class="page-item" :class="{'disabled': currentPage === pageCount}">
-              <a class="page-link" @click="goToPage(currentPage + 1)" href="#">Next</a>
+            <li
+              class="page-item"
+              :class="{ disabled: currentPage === pageCount }"
+            >
+              <a class="page-link" @click="goToPage(currentPage + 1)" href="#"
+                >Next</a
+              >
             </li>
           </ul>
         </nav>
       </div>
     </div>
-    <button v-if="data.length && csvDownload" class="btn btn-default" style="position: absolute; bottom: 2px; right: 2px" @click="downloadAsCSV()">Download CSV</button>
+    <button
+      v-if="data.length && csvDownload"
+      class="btn btn-default"
+      style="position: absolute; bottom: 2px; right: 2px"
+      @click="downloadAsCSV()"
+    >
+      Download CSV
+    </button>
+    <button
+      v-if="data.length && csvDownload"
+      class="btn btn-default"
+      style="position: absolute; bottom: 2px; right: 2px"
+      @click="downloadAsXLSX()"
+    >
+      Download as xlsx
+    </button>
   </div>
 </template>
 
@@ -102,67 +165,67 @@ export default {
   props: {
     columns: {
       type: Array,
-      required: true
+      required: true,
     },
     defaultLoop: {
       type: Boolean,
-      default: true
+      default: true,
     },
     customLoop: {
       type: Boolean,
-      default: false
+      default: false,
     },
     pagination: {
       type: Boolean,
-      default: true
+      default: true,
     },
     perPageOptions: {
       type: Array,
-      default: [5, 10, 25, 50, 100]
+      default: [5, 10, 25, 50, 100],
     },
     data: {
       type: Array,
-      default: []
+      default: [],
     },
     isSearchAble: {
       type: Boolean,
-      default: true
+      default: true,
     },
     entriesClass: {
       type: String,
-      default: "col-md-3"
+      default: "col-md-3",
     },
     searchClass: {
       type: String,
-      default: "col-md-5"
+      default: "col-md-5",
     },
     searchPlaceholder: {
       type: String,
-      default: "Search"
+      default: "Search",
     },
     filterClass: {
       type: String,
-      default: "col-md-4"
+      default: "col-md-4",
     },
     fileName: {
       type: String,
-      default: "List"
+      default: "List",
     },
     isShowPerPageOption: {
       type: Boolean,
-      default: true
+      default: true,
     },
     csvDownload: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
       perPage: 5,
       currentPage: 1,
-      search: '',
-      sortByColumn: '',
+      search: "",
+      sortByColumn: "",
       sortOrder: {},
     };
   },
@@ -172,7 +235,11 @@ export default {
       for (let i = 0; i < this.data.length; i++) {
         let obj = this.data[i];
         for (let key in obj) {
-          if (String(obj[key]).toLowerCase().includes(String(this.search).toLowerCase())) {
+          if (
+            String(obj[key])
+              .toLowerCase()
+              .includes(String(this.search).toLowerCase())
+          ) {
             results.push(obj);
             break;
           }
@@ -203,11 +270,11 @@ export default {
       return Math.ceil(this.filteredData.length / this.perPage);
     },
     pages() {
-      const pages = []
+      const pages = [];
       for (let i = 1; i <= this.pageCount; i++) {
-        pages.push(i)
+        pages.push(i);
       }
-      return pages
+      return pages;
     },
     paginatedData() {
       const start = (this.currentPage - 1) * this.perPage;
@@ -225,14 +292,15 @@ export default {
       }
     },
     goToPage(page) {
-      if (page < 1 || page > this.pageCount) return
-      this.currentPage = page
+      if (page < 1 || page > this.pageCount) return;
+      this.currentPage = page;
     },
     downloadAsCSV() {
       const csv = this.generateCSV(this.data);
-      const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const link = document.createElement("a");
-      if (link.download !== undefined) { // feature detection
+      if (link.download !== undefined) {
+        // feature detection
         const url = URL.createObjectURL(blob);
         link.setAttribute("href", url);
         link.setAttribute("download", this.fileName);
@@ -245,19 +313,57 @@ export default {
     },
     generateCSV(data) {
       const headerRow = Object.keys(data[0]).join(",");
-      const bodyRows = data.map(obj => Object.values(obj).join(","));
+      const bodyRows = data.map((obj) => Object.values(obj).join(","));
       return `${headerRow}\n${bodyRows.join("\n")}`;
-    }
+    },
+    downloadAsXLSX() {
+      const headerRow = Object.keys(this.data[0])
+        .map((key) => `<th>${key}</th>`)
+        .join("");
+      const bodyRows = this.data
+        .map((item) => {
+          return `<tr>${Object.values(item)
+            .map((value) => `<td>${value}</td>`)
+            .join("")}</tr>`;
+        })
+        .join("");
 
-  }
+      // Construct the HTML content of the table
+      const tableContent = `
+        <table>
+          <thead><tr>${headerRow}</tr></thead>
+          <tbody>${bodyRows}</tbody>
+        </table>
+      `;
+
+      // Create a Blob with the HTML content
+      const blob = new Blob([tableContent], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      const link = document.createElement("a");
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", this.fileName + ".xlsx");
+        link.style.visibility = "hidden";
+        document.body.appendChild(link);
+        link.click();
+
+        // Cleanup
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+    },
+  },
 };
 </script>
 <style scoped>
 .asc:before {
-  content: '\2191 ';
+  content: "\2191 ";
 }
 
 .desc:before {
-  content: '\2193 ';
+  content: "\2193 ";
 }
 </style>
