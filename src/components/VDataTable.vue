@@ -149,7 +149,7 @@
       Download CSV
     </button>
     <button
-      v-if="data.length && csvDownload"
+      v-if="data.length && xlsxDownload"
       class="btn btn-default"
       style="position: absolute; bottom: 2px; right: 2px"
       @click="downloadAsXLSX()"
@@ -216,6 +216,10 @@ export default {
       default: true,
     },
     csvDownload: {
+      type: Boolean,
+      default: true,
+    },
+    xlsxDownload: {
       type: Boolean,
       default: true,
     },
@@ -330,11 +334,11 @@ export default {
 
       // Construct the HTML content of the table
       const tableContent = `
-        <table>
-          <thead><tr>${headerRow}</tr></thead>
-          <tbody>${bodyRows}</tbody>
-        </table>
-      `;
+    <table>
+      <thead><tr>${headerRow}</tr></thead>
+      <tbody>${bodyRows}</tbody>
+    </table>
+  `;
 
       // Create a Blob with the HTML content
       const blob = new Blob([tableContent], {
